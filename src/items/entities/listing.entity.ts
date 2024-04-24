@@ -4,7 +4,7 @@ import { AbstractEntity } from 'src/database/abstract.entity';
 
 @Entity({ name: 'listings' })
 export class Listing extends AbstractEntity<Listing> {
-  @Column()
+  @Column({ nullable: false })
   description: string;
 
   @Column({ name: 'rating', type: 'integer', default: 0 })
