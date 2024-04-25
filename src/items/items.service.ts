@@ -1,8 +1,8 @@
-import { CreateItemDto } from './dto/create-item.dto';
+import { CreateItemDto, UpdateItemDto } from './dto/index';
+
 import { EntityManager } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { Item } from './entities/item.entity';
-import { UpdateItemDto } from './dto/update-item.dto';
 
 @Injectable()
 export class ItemsService {

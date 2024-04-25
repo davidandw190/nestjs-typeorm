@@ -7,11 +7,9 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
+import { Comment, Listing, Tag } from './index';
 
 import { AbstractEntity } from 'src/database/abstract.entity';
-import { Comment } from './comment.entity';
-import { Listing } from './listing.entity';
-import { Tag } from './tag.entity';
 
 @Entity({ name: 'items' })
 export class Item extends AbstractEntity<Item> {

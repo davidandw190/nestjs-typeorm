@@ -8,8 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
-import { CreateItemDto } from './dto/create-item.dto';
-import { UpdateItemDto } from './dto/update-item.dto';
+import { CreateItemDto, UpdateItemDto } from './dto/index';
 
 @Controller('items')
 export class ItemsController {
