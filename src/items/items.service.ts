@@ -1,16 +1,21 @@
-import { CreateItemDto, UpdateItemDto } from './dto/index';
+import { CreateItemDto, CreateTagDto, UpdateItemDto } from './dto/index';
+import { Item, Listing, Tag } from './entities';
 
 import { EntityManager } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { Item } from './entities/item.entity';
 
 @Injectable()
 export class ItemsService {
   constructor(private readonly entityManager: EntityManager) {}
 
   async create(data: CreateItemDto) {
-    const newItem = new Item(data);
-    await this.entityManager.save(newItem);
+    const listing = new Listing({ ...data.listing });
+
+    const tags = data.tags.map((tag: CreateTagDto) => new Tag(tag));
+
+    const item = new Item({ ...data, comments: [], listing, tags });
+
+    await this.entityManager.save(item);
   }
 
   findAll() {
