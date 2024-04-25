@@ -19,14 +19,9 @@ export class ItemsController {
     return this.itemsService.create(createItemDto);
   }
 
-  @Get()
-  findAll() {
-    return this.itemsService.findAll();
-  }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.itemsService.findOne(+id);
+  async findOne(@Param('id') itemId: string) {
+    return this.itemsService.findOne(+itemId);
   }
 
   @Patch(':id')
