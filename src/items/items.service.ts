@@ -25,13 +25,15 @@ export class ItemsService {
    * @param data The data to create the item.
    */
   async create(data: CreateItemDto) {
-    const listing = new Listing({ ...data.listing });
+    await this.entityManager.transaction(async (entityManager) => {
+      const listing = new Listing({ ...data.listing });
 
-    const tags = data.tags.map((tag: CreateTagDto) => new Tag(tag));
+      const tags = data.tags.map((tag: CreateTagDto) => new Tag(tag));
 
-    const item = new Item({ ...data, comments: [], listing, tags });
+      const item = new Item({ ...data, comments: [], listing, tags });
 
-    await this.entityManager.save(item);
+      await entityManager.save(item);
+    });
   }
 
   /**
@@ -64,12 +66,21 @@ export class ItemsService {
     }
   }
 
-  update(id: number, updateItemDto: UpdateItemDto) {
-    return `This action updates a #${id} item`;
+  async updateItemDetails(itemId: number, data: UpdateItemDto) {
+    await this.entityManager.transaction(async (entityManager) => {
+      const item = await entityManager.findOne(Item, {
+        where: { id: itemId },
+        relations: { listing: true, tags: true },
+      });
+
+      item.isPublic = data.isPublic;
+
+      await entityManager.save(item);
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} item`;
+  async remove(id: number) {
+    await this.itemsRepository.delete(id);
   }
 
   /**

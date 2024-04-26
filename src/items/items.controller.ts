@@ -37,12 +37,12 @@ export class ItemsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
-    return this.itemsService.update(+id, updateItemDto);
+  async update(@Param('id') itemId: string, @Body() data: UpdateItemDto) {
+    return this.itemsService.updateItemDetails(+itemId, data);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.itemsService.remove(+id);
   }
 }

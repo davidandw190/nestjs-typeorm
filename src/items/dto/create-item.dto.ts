@@ -1,8 +1,9 @@
-import { CreateListingDto, CreateTagDto } from '.';
+import { CreateTagDto } from '.';
+import { UpdateListingDto } from './update-listing.dto';
 
 export class CreateItemDto {
   name: string;
   isPublic: boolean;
-  listing: CreateListingDto;
+  listing: UpdateListingDto;
   tags: CreateTagDto[];
 }

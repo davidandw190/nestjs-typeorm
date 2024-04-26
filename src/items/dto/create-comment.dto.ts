@@ -1,4 +1,4 @@
 export class CreateCommentDto {
   content: string;
-  numLikes: string;
+  numLikes?: number;
 }
